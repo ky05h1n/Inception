@@ -10,7 +10,7 @@ services:
       - inception
     volumes:
       - mariadb:/var/lib/mysql
-    restart: unless-stopped
+    restart: always
     expose:
       - "3306"
   wordpress:
@@ -25,7 +25,13 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - mariadb
-    restart: on-failure
+    healthcheck:       
+      test: ["CMD-SHELL", "curl --silent --fail http://localhost:3306 || exit 1"]       
+      interval: 30s       
+      timeout: 10s       
+      retries: 3       
+      start_period: 60s  
+    restart: always
     expose:
       - "9000"
 volumes:
@@ -34,13 +40,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /Users/enja/Desktop/data/wordpress
+      device: /home/aminux/Desktop/data/wordpress
   mariadb:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /Users/enja/Desktop/data/mariadb
+      device: /home/aminux/Desktop/data/mariadb
 networks:
   inception:
     driver: bridge
