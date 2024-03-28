@@ -2,12 +2,12 @@ version: '3'
 services:
   mariadb:
     container_name: mariadb
+    build: 
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    env_file: .env
     networks:
       - inception
-    build: 
-      context: requirement/mariadb
-      dockerfile: dockerfile
-    env_file: .env
     volumes:
       - mariadb:/var/lib/mysql
     restart: unless-stopped
@@ -21,8 +21,8 @@ services:
     networks:
       - inception
     build: 
-      context: requirement/wordpress
-      dockerfile: dockerfile
+      context: requirements/wordpress
+      dockerfile: Dockerfile
     depends_on:
       - mariadb
     restart: on-failure
@@ -30,17 +30,17 @@ services:
       - "9000"
 volumes:
   wordpress:
-    driver: local 
+    driver: local
     driver_opts:
-    type: 'none' 									
-    o: 'bind'
-    device: '/Users/enja/Desktop/data/wordpress'	
+      type: none
+      o: bind
+      device: /Users/enja/Desktop/data/wordpress
   mariadb:
     driver: local
     driver_opts:
-    type: 'none' 
-    o: 'bind'
-    device: '/Users/enja/Desktop/data/mariadb'
+      type: none
+      o: bind
+      device: /Users/enja/Desktop/data/mariadb
 networks:
   inception:
     driver: bridge
