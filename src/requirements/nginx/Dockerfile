@@ -8,9 +8,9 @@ RUN chmod 777 /etc/nginx/ssl
 RUN apt-get install openssl -y
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/private.key -out /etc/nginx/ssl/certificate.crt -subj "/C=MA/ST=Bengurir/L=maroc/O=um6p/OU=1337/CN=enja.42.fr"
 
-COPY ./conf/default.conf /etc/nginx/conf.d
+COPY ./conf/default.conf /etc/nginx/sites-available/default
 
-RUN chmod 777 /var/www/html
+RUN chmod 755 /var/www/html 
 
 RUN chown -R www-data:www-data /var/www/html
 

@@ -1,6 +1,7 @@
 #!/bin/sh
 # mkdir /var/www/
-mkdir /var/www/html
+sleep 5
+# mkdir /var/www/html
 
 cd /var/www/html
 
@@ -30,7 +31,7 @@ wp core install --url=$DOMAIN_NAME/ --title=$TITLE \
     --admin_email=$ADMIN_EMAIL \
     --skip-email --allow-root
 
-wp user create $USER_WP $USER_EMAIL --user_pass=$USER_PASSWORD --role=author --allow-root --path='/var/www/wordpress'
+wp user create $USER_WP $USER_EMAIL --user_pass=$USER_PASSWORD --role=author --allow-root --path='/var/www/html'
 wp plugin update --all --allow-root
 
 sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf

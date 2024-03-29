@@ -7,7 +7,7 @@ RUN apt-get update -y && \
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
-
+    
 COPY ./tools/wp-config.php /
 
 COPY ./tools/script.sh /usr/local/bin/script.sh

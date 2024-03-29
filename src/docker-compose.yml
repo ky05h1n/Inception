@@ -6,6 +6,8 @@ services:
      - inception
     depends_on:
      - wordpress
+    volumes:
+     - wordpress:/var/www/html
     build: 
       context: requirements/nginx
       dockerfile: Dockerfile
@@ -30,7 +32,7 @@ services:
     container_name: wordpress
     env_file: .env
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html
     networks:
       - inception
     build: 
